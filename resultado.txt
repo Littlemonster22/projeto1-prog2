@@ -1,0 +1,24 @@
+		Jogador(a): Matheus
+		Resultado: Perdeu
+		Peças restantes: 9
+
+		Jogador(a): Cristina
+		Resultado: Perdeu (peça restante não estava no centro)
+		Peças restantes: 1
+
+		Jogador(a): Daiane
+		Resultado: Venceu
+		Peças restantes: 1
+
+		Jogador(a): Paulo
+		Resultado: Perdeu
+		Peças restantes: 9
+
+		Jogador(a): William
+		Resultado: Perdeu
+		Peças restantes: 12
+
+		Jogador(a): Alcides
+		Resultado: Venceu
+		Peças restantes: 1
+
