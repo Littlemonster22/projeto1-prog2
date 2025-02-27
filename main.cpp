@@ -3,6 +3,7 @@
 #include <conio.h>
 #include <locale.h>
 #include <fstream>
+#include <limits>
 #define TAMANHO 7
 using namespace std;
 
@@ -14,8 +15,8 @@ void exibirOpcao(int &escolha);
 void inserirNome(string &nome);
 void inicializarTabuleiro(char tabuleiro[TAMANHO][TAMANHO], int &contadorPecas);
 void imprimirTabuleiro(char tabuleiro[TAMANHO][TAMANHO]);
-void jogadaOrigem(int &linhaOrigem,int &colunaOrigem);
-void jogadaDestino(int &linhaDestino,int &colunaDestino);
+void jogadaOrigem(int &linhaOrigem,int &colunaOrigem,char tabuleiro[TAMANHO][TAMANHO]);
+void jogadaDestino(int &linhaDestino,int &colunaDestino,char tabuleiro[TAMANHO][TAMANHO]);
 bool realizarJogada(int linhaOrigem,int colunaOrigem,int linhaDestino,int colunaDestino,
                     char tabuleiro[TAMANHO][TAMANHO]);
 void realizarJogada(int linhaOrigem,int colunaOrigem,int linhaDestino,int colunaDestino,
@@ -48,8 +49,8 @@ int main()
                 while (true) {
                     limparTela();
                     imprimirTabuleiro(tabuleiro);
-                    jogadaOrigem(lOrigem,cOrigem);
-                    jogadaDestino(lDestino,cDestino);
+                    jogadaOrigem(lOrigem,cOrigem,tabuleiro);
+                    jogadaDestino(lDestino,cDestino,tabuleiro);
                     if (realizarJogada(lOrigem, cOrigem, lDestino, cDestino, tabuleiro)) {
                         realizarJogada(lOrigem, cOrigem, lDestino, cDestino, tabuleiro, contadorPecas);
                         if (verificarfimdejogo(tabuleiro, contadorPecas, nome)) {
@@ -206,16 +207,42 @@ void imprimirTabuleiro(char tabuleiro[TAMANHO][TAMANHO])
     }
 }
 
-void jogadaOrigem(int &linhaOrigem, int &colunaOrigem)
+void jogadaOrigem(int &linhaOrigem, int &colunaOrigem,char tabuleiro[TAMANHO][TAMANHO])
 {
-    cout << "\n\n\tInsira a linha e coluna de origem, ex: [5 3]: ";
-    cin >> linhaOrigem >> colunaOrigem;
+    bool entradaValida;
+    do{
+        limparTela();
+        imprimirTabuleiro(tabuleiro);
+        cout << "\n\n\tInsira a linha e coluna de origem, ex: [5 3]: ";
+        if(!(cin >> linhaOrigem >> colunaOrigem)){
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(),'\n');
+            cout << "\n\tUtilize apenas números inteiros para as coordernadas. Tente de novo!";
+            getch();
+            entradaValida = false;
+        }else{
+            entradaValida = true;
+        }
+    }while(!entradaValida);
 }
 
-void jogadaDestino(int &linhaDestino, int &colunaDestino)
+void jogadaDestino(int &linhaDestino, int &colunaDestino,char tabuleiro[TAMANHO][TAMANHO])
 {
-    cout << "\n\tAgora a linha e coluna de destino: ";
-    cin >> linhaDestino >> colunaDestino;
+    bool entradaValida;
+    do{
+        limparTela();
+        imprimirTabuleiro(tabuleiro);
+        cout << "\n\n\tAgora insira a linha e coluna de destino: ";
+        if(!(cin >> linhaDestino >> colunaDestino)){
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(),'\n');
+            cout << "\n\tUtilize apenas números inteiros para as coordernadas. Tente de novo!";
+            getch();
+            entradaValida = false;
+        }else{
+            entradaValida = true;
+        }
+    }while(!entradaValida);
 }
 
 bool realizarJogada(int linhaOrigem, int colunaOrigem, int linhaDestino, int colunaDestino,
